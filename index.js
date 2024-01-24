@@ -39,7 +39,6 @@ function checkForWin() {
   sets.forEach((array) => {
     let firstItem = array[0].firstElementChild.textContent;
     if (checkArraySimilarity(array, firstItem)) {
-      console.log("win");
       gameOver = true;
       gameOverDisplay();
     }
@@ -59,7 +58,6 @@ function checkArraySimilarity(array, firstItem) {
 }
 
 function gameOverDisplay() {
-  console.log("gameOverDisplay");
   menu.style.display = "flex";
   resetBtn.textContent = "reset";
   menuTxt.textContent = `${turn} won the game`;
@@ -88,12 +86,20 @@ resetBtn.addEventListener("click", resetGame);
 function squaredClicked(square) {
   let firstChild = square.firstElementChild;
 
-  if (firstChild.textContent === "" && !gameOver) {
+  if (firstChild.textContent === "" && !gameOver && numberOfTurns <= 9) {
     addPlay(firstChild);
 
     checkForWin();
 
     nextTurn();
+
+    numberOfTurns++
+  }
+  
+  if (numberOfTurns >= 9 && !gameOver) {
+
+    gameOverDisplay()
+    menuTxt.textContent = `DRAW. No one won the game.`;
   }
 }
 
