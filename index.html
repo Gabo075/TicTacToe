@@ -3,45 +3,60 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="index.css" />
+    <link rel="stylesheet" href="./css/index.css" />
     <title>Document</title>
   </head>
   <body>
-    <section>
+    <section id="main-menu">
+      <h1>Tic Tac Toe</h1>
+      <div id="menu-btns">
+        <button id="offline-game-btn">Offline Game</button>
+        <button id="online-game-btn">Online Game</button>
+      </div>
+    </section>
+    <section id="offline">
       <div id="container">
-        <div id="menu">
-          <p id="menu-text">Tic Tac Toe</p>
-          <button id="reset-btn">Start</button>
-        </div>
-        <div class="square">
-          <p></p>
-        </div>
-        <div class="square">
-          <p></p>
-        </div>
-        <div class="square">
-          <p></p>
-        </div>
-        <div class="square">
-          <p></p>
-        </div>
-        <div class="square">
-          <p></p>
-        </div>
-        <div class="square">
-          <p></p>
-        </div>
-        <div class="square">
-          <p></p>
-        </div>
-        <div class="square">
-          <p></p>
-        </div>
-        <div class="square">
-          <p></p>
+        <div id="grid-wrapper">
+          <div id="player-turn-guide">Player 1 turn</div>
+          <div id="grid-container">
+            <div class="square">
+              <p></p>
+            </div>
+            <div class="square">
+              <p></p>
+            </div>
+            <div class="square">
+              <p></p>
+            </div>
+            <div class="square">
+              <p></p>
+            </div>
+            <div class="square">
+              <p></p>
+            </div>
+            <div class="square">
+              <p></p>
+            </div>
+            <div class="square">
+              <p></p>
+            </div>
+            <div class="square">
+              <p></p>
+            </div>
+            <div class="square">
+              <p></p>
+            </div>
+          </div>
+          <button id="reset-btn">Restart</button>
         </div>
       </div>
     </section>
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.slim.js"
+      integrity="sha256-UgvvN8vBkgO0luPSUl2s8TIlOSYRoGFAX4jlCIm9Adc="
+      crossorigin="anonymous"
+    ></script>
     <script src="index.js"></script>
+    <script type="module" src="database.js"></script>
   </body>
 </html>

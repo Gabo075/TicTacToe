@@ -1,15 +1,18 @@
 // MVC
-
 //Model - Manages data
 const squares = Array.from(document.getElementsByClassName("square"));
+squares.forEach(square => square.classList.add("square-hover"));
 const menu = document.getElementById("menu");
 const resetBtn = document.getElementById("reset-btn");
 const menuTxt = document.getElementById("menu-text");
+const offlineSec = document.getElementById("offline")
+const offlineSecBtn = document.getElementById("offline-game-btn")
+const playerGuide = document.getElementById("player-turn-guide")
 
 let gameOver = false;
 let numberOfTurns = 0;
 
-const players = ["player1", "player2"];
+const players = ["Player 1", "Player 2"];
 
 const sets = [
   //columns
@@ -28,7 +31,7 @@ const sets = [
 ];
 
 function nextTurn() {
-  if (turn.includes("player1")) {
+  if (turn.includes("Player 1")) {
     turn = players[1];
   } else {
     turn = players[0];
@@ -48,32 +51,48 @@ function checkForWin() {
 //Checks all items in array are the same, excluding being empty
 
 function checkArraySimilarity(array, firstItem) {
-  if (
-    array.every((item) => item.firstElementChild.textContent != "") &&
+  return array.every((item) => item.firstElementChild.textContent != "") &&
     array.every((item) => item.firstElementChild.textContent === firstItem)
-  ) {
-    return true;
-  }
-  return false;
 }
 
 function gameOverDisplay() {
-  menu.style.display = "flex";
-  resetBtn.textContent = "reset";
-  menuTxt.textContent = `${turn} won the game`;
+  nextTurn()
+  squares.forEach(square => {
+    square.style.cursor = "not-allowed"
+    square.classList.remove("square-hover")
+  })
+  playerGuide.textContent = `${turn} won the game`
 }
 
 //View - Manages the diplay
 function addPlay(firstChild) {
-  if (turn.includes("player1")) {
+  if (turn.includes("Player 1")) {
     firstChild.textContent = "x";
   } else {
     firstChild.textContent = "o";
   }
 }
 
-//Controller - Controls intreractions between view and model
+function setOfflineDisplay() {
+  const sections = document.querySelectorAll("section")
+  sections.forEach(section => section.style.display = "none")
+  offlineSec.style.display = "flex"
+}
+
+function changeTurnDisplay(turn) {
+  if (turn === "Player 1") {
+    playerGuide.classList.remove("player2-turn")
+    playerGuide.textContent = `Player 1 turn`
+  }else {
+    playerGuide.classList.add("player2-turn")
+    playerGuide.textContent = `Player 2 turn`
+  }
+}
+
+//  Controller - Controls intreractions between view and model
 let turn = players[0];
+
+offlineSecBtn.addEventListener('click', setOfflineDisplay)
 
 squares.forEach((square) => {
   square.addEventListener("click", function () {
@@ -81,17 +100,15 @@ squares.forEach((square) => {
   });
 });
 
-resetBtn.addEventListener("click", resetGame);
-
 function squaredClicked(square) {
   let firstChild = square.firstElementChild;
 
   if (firstChild.textContent === "" && !gameOver && numberOfTurns <= 9) {
     addPlay(firstChild);
 
-    checkForWin();
-
     nextTurn();
+
+    changeTurnDisplay(turn);
 
     numberOfTurns++
   }
@@ -99,9 +116,13 @@ function squaredClicked(square) {
   if (numberOfTurns >= 9 && !gameOver) {
 
     gameOverDisplay()
-    menuTxt.textContent = `DRAW. No one won the game.`;
+    playerGuide.textContent = `DRAW. No one won the game.`;
   }
+
+  checkForWin();
 }
+
+resetBtn.addEventListener("click", resetGame);
 
 function resetGame() {
   gameOver = false;
@@ -110,8 +131,9 @@ function resetGame() {
 
   squares.forEach((square) => {
     square.firstElementChild.textContent = "";
+    square.classList.add("square-hover")
+    square.style.cursor = "default"
   });
 
-  menu.style.display = "none";
-  resetBtn.textContent = "";
+  changeTurnDisplay(turn)
 }

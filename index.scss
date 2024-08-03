@@ -1,0 +1,103 @@
+@use 'items.scss';
+
+$bck-color: navy;
+$player1-color: orange;
+$player2-color: cyan;
+$secondary-color: red;
+$white-tone: white;
+
+*, body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+section {
+    display: none;
+    margin: 0 auto;
+    background-color: $bck-color;
+
+    height: 100vh;
+    
+    justify-content: center;
+    align-items: center;
+}
+
+section:first-of-type {
+    display: flex;
+}
+
+#main-menu {
+    display: flex;
+
+    flex-direction: column;
+    gap: 20px;
+
+    h1 {
+        color: $white-tone;
+        font-size: 32px;
+    }
+
+    #menu-btns button {
+        font-size: 28px;
+    }
+}
+
+#grid-wrapper {
+    width: fit-content;
+
+    margin: 0 auto;
+}
+
+#player-turn-guide {
+    background-color: $player1-color;
+
+    padding: 10px 5px;
+
+    text-align: center;
+}
+
+.player2-turn {
+    background-color: $player2-color !important;
+}
+
+#grid-container {
+    display: grid;
+    grid-template-columns: 33.3% 33.3% 33.3%;
+
+    background-color: $bck-color;
+
+    position: relative;
+
+    border: 1px solid $bck-color;
+}
+
+.square {
+    height: 100px;
+    width: 100px;
+
+    display: block;
+
+    background-color: antiquewhite;
+
+    padding: 2px;
+
+    transition: all 0.2s ease-in;
+
+    border: 1px solid $bck-color;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 42px;
+    font-weight: 800px;
+
+    transition: all 0.2s ease-in;
+}
+
+.square-hover:hover {
+    padding: 0;
+    margin: 2px;
+}
+
